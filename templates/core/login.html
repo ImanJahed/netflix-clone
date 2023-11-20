@@ -1,0 +1,46 @@
+{% extends "_base.html" %}
+
+
+{% block header %}
+
+{% endblock header %}
+
+
+{% block content %}
+<body>
+
+    <div class="bg-image">
+        <div class="signup-container">
+            <h1>Login</h1>
+            <h2  class=" mb-5">Unlimited movies, TV shows, and more.</h2>
+
+            <div>
+                <style>
+                    h5{
+                        color: red;
+                    }
+                </style>
+                {% for message in messages %}
+                <h5>{{message}}</h5>
+                {% endfor %}
+            </div>
+
+
+            <form action="" method="POST">
+                {% csrf_token %}
+                {{ form }}
+                <button style="color:white" type="submit" class="signup-btn">Login</button>
+            </form>
+            <div class="help-text" align="center">
+                <span>Ready to watch? Enter your email to create or restart your membership.</span>
+                <br>
+                <br>
+                <span>Dont have an account? <a href="{% url 'sign_up' %}">Signup</a></span>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+
+{% endblock content %}

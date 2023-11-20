@@ -84,6 +84,17 @@ DATABASES = {
 }
 
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'database',
+#         'USER': 'fl0user',
+#         'PASSWORD': 'DYfmSgov5P3I',
+#         'HOST': 'ep-broken-voice-69690679.ap-southeast-1.aws.neon.fl0.io',
+#         'PORT': '5432',
+#     }
+# }
+
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
