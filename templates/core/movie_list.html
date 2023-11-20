@@ -1,0 +1,63 @@
+{% extends "_base.html" %}
+
+{% block content %}
+
+
+
+<body class="text-white" style="background-color: #141414;">
+    <hr>
+
+    <section class="py-10 px-5">
+
+        <div align="center">
+            <h2 class="text-xl mb-5">
+                My List
+            </h2>
+        </div>
+        <div class="flex space-x-5 overflow-x-auto">
+
+            {% for movie in movies reversed %}
+            <div class="w-40 h-64 flex-shrink-0 film-card"
+                onclick="showModal(this)"
+                data-title="{{ movie.movie.title }}"
+                data-description="{{ movie.movie.description }}"
+                data-release-date="{{ movie.movie.release_date|date:'Y' }}"
+                data-genre="{{ movie.movie.genre.all}}"
+                data-length="{{ movie.movie.length }}"
+                data-image-card-url="{{ movie.movie.movie_image.url }}"
+                data-image-cover-url="{{ movie.movie.movie_poster.url }}"
+                data-video-url="{% url 'movie' movie.movie.movie_id %}"
+                style="background-image: url('{{movie.movie.movie_image.url}}'); background-size: cover; background-position: center;">
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+
+
+    <!-- Modal -->
+    <div class="modal" id="movieModal">
+        <div class="modal-content">
+            <div class="flex justify-between">
+                <h2 class="text-xl mb-5">Movie Title</h2>
+                <button onclick="hideModal()">X</button>
+            </div>
+            <img width="1000" height="100" src="https://bloximages.newyork1.vip.townnews.com/newsrecord.org/content/tncms/assets/v3/editorial/8/1e/81ea500c-45ac-11ee-a11e-a7402910a7e7/64ecaae69243a.image.jpg" alt="Movie Image" class=" mb-5">
+            <div class="flex justify-between mb-5">
+                <span>Year: 2023</span>
+                <span>Length: 2h 15min</span>
+            </div>
+            <p class="mb-5">Detailed information about the movie.</p>
+            <div class="flex space-x-4 mb-5">
+                <a href="movie.html">
+                    <button class="bg-red-600 text-white p-2 px-5 rounded hover:bg-red-500">Play</button>
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+
+
+{% endblock content %}

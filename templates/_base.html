@@ -22,31 +22,27 @@
 
         <nav class="flex space-x-5">
             <span><a href="{% url 'home' %}">Home</a></span>
-            <span><a href="{% url 'home' %}">Film</a></span>
-            <span><a href="{% url 'home' %}">Series</a></span>
+            <span><a href="{% url 'film_list' %}">Film</a></span>
+            <span><a href="{% url 'series_list' %}">Series</a></span>
 
             <div class="dropdown">
                 <span id="dropdownMenuButton" class="cursor-pointer">Genres ▼</span>
 
                 <div id="dropdownMenu" class="dropdown-content hidden">
-                    <ul><a href="/genre/action/">Action</a></ul>
-                    <ul><a href="/genre/comedy/">Comedy</a></ul>
-                    <ul><a href="/genre/drama/">Drama</a></ul>
-                    <ul><a href="/genre/horror/">Horror</a></ul>
-                    <ul><a href="/genre/romance/">Romance</a></ul>
-                    <ul><a href="/genre/sciencefiction/">Science Fiction</a></ul>
-                    <ul><a href="/genre/fantasy/">Fantasy</a></ul>
+                    {% for genre in genres %}
+                    <ul><a href="{% url 'genre' genre.name %}">{{ genre.name }}</a></ul>
+
+                    {% endfor %}
                 </div>
             </div>
 
-            <span><a href="/my-list">My List</a></span>
+            <span><a href="{% url 'my_list' %}">My List</a></span>
         </nav>
 
 
         <div class="flex space-x-5 items-center">
-            <form action="search" method="POST">
-                {% csrf_token %}
-                <input type="search" name="search_term" placeholder="Search" class="bg-gray-700 p-2 rounded">
+            <form action="{% url 'search' %}" method="GET">
+                <input type="search" name="q" placeholder="Search" class="bg-gray-700 p-2 rounded">
                 <button class="bg-red-600 text-white p-2 rounded hover:bg-red-500">Search</button>
             </form>
 

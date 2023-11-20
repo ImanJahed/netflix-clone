@@ -1,0 +1,37 @@
+{% extends "_base.html" %}
+
+
+{% block content %}
+
+<body class="bg-blue-900 text-white" style="background-color: #181818;">
+
+    <!-- Main Content -->
+    <div class="container mx-auto mt-10">
+        <!-- Movie Title and Back Button -->
+        <div class="flex items-center justify-between">
+            <h2 class="text-3xl font-semibold">{{movie_details.title}}</h2>
+            <a href="{% url 'home' %}" class="text-gray-400 hover:text-white">← Back to movies</a>
+        </div>
+
+        <div class="mt-8">
+            <video class="w-full h-auto" controls>
+                <source src="{{movie_details.movie_video.url}}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+
+
+        <!-- Movie Description -->
+        <div class="mt-6">
+            <h3 class="text-xl font-semibold mb-2">About the Movie</h3>
+            <p>
+                {{movie_details.description}}
+            </p>
+        </div>
+    </div>
+
+</body>
+
+
+
+{% endblock content %}

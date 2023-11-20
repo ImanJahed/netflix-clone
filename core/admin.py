@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from core.models import Movie, Genre
+from core.models import Movie, Genre, ListMovie
 
 
 # Register your models here.
@@ -8,4 +8,6 @@ from core.models import Movie, Genre
 class MovieAdmin(admin.ModelAdmin):
     list_display = ['title', 'release_date', 'length']
 
+
 admin.site.register(Genre)
+admin.site.register(ListMovie)

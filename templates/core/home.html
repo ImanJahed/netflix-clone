@@ -3,12 +3,12 @@
 
 {% block content %}
 <body class="text-white" style="background-color: #141414;">
-    <section class="relative py-20 px-10" style="background-image: url('{{cover.url}}'); background-size: cover; background-position: center;">
+    <section class="relative py-20 px-10" style="background-image: url('{{cover.movie_poster.url}}'); background-size: cover; background-position: center; height: 600px">
         <div>
-            <h1 style="color: black;" class="text-5xl mb-5">{{featured_movie.title}}</h1>
-            <p style="color: black;" class="mb-5">{{featured_movie.description}}</p>
+            <h1 style="color: gray;" class="text-5xl mb-5">{{cover.title}}</h1>
+            <p style="color: gray;" class="mb-5">{{cover.description|truncatewords:10}}</p>
             <div class="flex space-x-4">
-                <a href="/movie/{{featured_movie.uu_id}}">
+                <a href="{% url 'movie' cover.movie_id %}">
                     <button class="bg-red-600 text-white p-2 px-5 rounded hover:bg-red-500">Play</button>
                 </a>
             </div>
@@ -25,11 +25,11 @@
                 data-title="{{ movie.title }}"
                 data-description="{{ movie.description }}"
                 data-release-date="{{ movie.release_date|date:'Y' }}"
-                data-genre="{{ movie.get_genre_display }}"
+                data-genre="{{ movie.genre.first}}"
                 data-length="{{ movie.length }}"
                 data-image-card-url="{{ movie.movie_image.url }}"
                 data-image-cover-url="{{ movie.movie_poster.url }}"
-                data-video-url="/movie/{{ movie.movie_id }}"
+                data-video-url="{% url 'movie' movie.movie_id %}"
                 style="background-image: url('{{movie.movie_image.url}}'); background-size: cover; background-position: center;">
             </div>
             {% endfor %}
@@ -62,7 +62,32 @@
 
         </div>
     </div>
+ <script>
+                function addItemToList() {
+            const modal = document.getElementById('movieModal')
+            var movieID = modal.querySelector('.modal-content a').href;
 
+            $.ajax({
+                url: "{% url 'add-to-list' %}",
+                type: "POST",
+                data: {
+                    movie_id: movieID,
+                    csrfmiddlewaretoken: "{{ csrf_token }}"
+                },
+                success: function(data) {
+                    $('#addToListButton').text(data.message);
+
+                    $('#addToListButton').prop('disabled', true);
+
+                    console.log("Item added to list!");
+                },
+                error: function(xhr, errmsg, err) {
+
+                    console.error("Error adding item to list: " + errmsg);
+                }
+            });
+        }
+    </script>
 
 </body>
 {% endblock content %}

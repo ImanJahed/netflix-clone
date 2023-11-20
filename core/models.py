@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 import uuid
 
 
@@ -34,4 +35,9 @@ class Genre(models.Model):
         return self.name
 
 
+class ListMovie(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name='movie_list')
 
+    def __str__(self):
+        return self.movie.title
