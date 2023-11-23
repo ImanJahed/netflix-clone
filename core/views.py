@@ -25,6 +25,7 @@ def home(request):
 
     return render(request, 'core/home.html', context)
 
+
 @login_required(login_url='login_user')
 def movie(request, pk):
     movie_details = get_object_or_404(Movie, movie_id=pk)
@@ -63,6 +64,7 @@ def add_to_list(request):
     else:
         return JsonResponse({'status': 'error', 'messages': 'Invalid request'}, status=400)
 
+
 @login_required(login_url='login_user')
 def film_list(request):
     films = Movie.objects.filter(type_movie='Film')
@@ -73,6 +75,7 @@ def film_list(request):
         'cover': cover
     }
     return render(request, 'core/film_list.html', context)
+
 
 @login_required(login_url='login_user')
 def series_list(request):
@@ -85,6 +88,7 @@ def series_list(request):
     }
     return render(request, 'core/series.html', context)
 
+
 @login_required(login_url='login_user')
 def search(request):
     q = request.GET.get('q', None)
@@ -94,6 +98,7 @@ def search(request):
         'search_term': q
     }
     return render(request, 'core/search.html', context)
+
 
 @login_required(login_url='login_user')
 def genre(request, genre):
